@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography;
 
 namespace Program
 {
@@ -12,11 +11,11 @@ namespace Program
             {
                 ExecutarCabecalho();
 
-                string palavraSecreta = EscolherPalavraAleatoria();
+                string palavraSecreta = PalavraAleatoria.EscolherPalavraAleatoria();
 
                 string palavraDigitada = PalavraDigitadaUsuario();
 
-                int tentativasUsadas = ValidacaoLetras(palavraDigitada, palavraSecreta);
+                int tentativasUsadas = Validacao.ValidacaoLetras(palavraDigitada, palavraSecreta);
                 const int maximoTentativas = 5;
 
                 while (tentativasUsadas < maximoTentativas)
@@ -27,7 +26,7 @@ namespace Program
 
                     if (palavraDigitada == palavraSecreta)
                         break;
-                         tentativasUsadas++;
+                    tentativasUsadas++;
 
                 }
 
@@ -58,21 +57,9 @@ namespace Program
 
         }
 
-      public static string EscolherPalavraAleatoria()
-        {
-            string[] palavras =
-                {
-                "CARTA","PEDRA","VERDE","NUVEM","JOGAR","TEMPO","FESTA",
-                "LIVRO","JOVEM","DANCA","PRAIA","CARRO","FOLHA","SONHO",
-                "MUNDO","NOITE","TARDE","CAMPO","VIDRO","FERRO","CAIXA",
-                "PONTO","RISOS","CLARO","BRAVO", "VASCO"
-            };
 
-            int palavraSorteada = RandomNumberGenerator.GetInt32(palavras.Length);
-            return palavras[palavraSorteada];
-        }
 
-      public static string PalavraDigitadaUsuario()
+        public static string PalavraDigitadaUsuario()
         {
             Console.WriteLine($"                   ");
             Console.WriteLine("--------------------------------");
@@ -86,76 +73,6 @@ namespace Program
             return palavraDigitada;
         }
 
-        public static int ValidacaoLetras(string palavraDigitada, string palavraSecreta)
-        {
-            const int maximoTentativas = 5;
-            int tentativasUsadas = 0;
-
-
-            Console.WriteLine($"\nTentativa: {tentativasUsadas + 1}");
-
-
-            for (int caractere = 0; caractere < 5; caractere++)
-            {
-                if (palavraDigitada[caractere] == palavraSecreta[caractere])
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write($"{palavraDigitada[caractere]}");
-                }
-                else if (palavraSecreta.Contains(palavraDigitada[caractere]))
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write($"{palavraDigitada[caractere]}");
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write($"{palavraDigitada[caractere]}");
-                }
-
-
-                Console.ForegroundColor = ConsoleColor.White;
-
-
-            }
-
-
-            if (palavraDigitada == palavraSecreta)
-            {
-                ExecutarCabecalho();
-                Console.WriteLine("\nVoce acertou a palavra secreta!");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("PARABENS!");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("---------------------------------------");
-                Console.WriteLine($"\nA palavra secreta era: ");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"{palavraSecreta}");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("---------------------------------------");
-            }
-
-
-            tentativasUsadas++;
-
-            if (tentativasUsadas == maximoTentativas)
-            {
-                ExecutarCabecalho();
-                Console.WriteLine("\nVoce atingiu o limite de tentativas!");
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("PERDEU!");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("---------------------------------------");
-                Console.WriteLine($"\nA palavra secreta era: ");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"{palavraSecreta}");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("---------------------------------------");
-            }
-
-            return tentativasUsadas;
-
-        }
 
         static bool OpcaoDesejaContinuar()
         {
