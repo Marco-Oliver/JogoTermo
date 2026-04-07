@@ -60,4 +60,3 @@ A cada tentativa:
  ````
  ## Requisitos
  - .NET SDK 10.0
- 
